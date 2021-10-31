@@ -1,0 +1,27 @@
+{
+  "name": "email_system",
+  "version": "1.0.0",
+  "description": "imap pop3 smtp",
+  "main": "index.js",
+  "scripts": {
+    "test": "run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dzyfhuba/email-system.git"
+  },
+  "keywords": [
+    "email"
+  ],
+  "author": "Hafidz Ubaidillah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dzyfhuba/email-system/issues"
+  },
+  "homepage": "https://github.com/Dzyfhuba/email-system#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.1",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1"
+  }
+}
