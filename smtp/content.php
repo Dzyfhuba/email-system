@@ -21,9 +21,11 @@
             </div>
         </div>
     </div>
-    <div class="custom-file">
+    <!-- <div class="custom-file">
         <input id="file" class="custom-file-input" type="file" name="file" multiple>
         <label for="file" class="custom-file-label">Attach File</label>
-    </div>
+    </div> -->
+    <input type="file" multiple="multiple" class="multi"/>
+
     <button type="submit" class="btn btn-success w-100 fixed-bottom rounded-0">Send</button>
 </form>

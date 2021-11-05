@@ -3,10 +3,9 @@
 // });
 
 $('#data button').on('click', function(){
-    $('#save').toggle();
-    $('#edit').toggle();
-    if ($('#save').css('display') == 'none') {
+    if ($('#save').html() == 'edit') {
         console.log($('#data').serialize());
+        $('#save').html("edit");
         $('#data input').attr('disabled', '');
         $('#data select').attr('disabled', '');
     } else {
