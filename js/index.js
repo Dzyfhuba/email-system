@@ -1,5 +1,15 @@
-$('#data').on('submit', function () {
-    // console.log($('#data').serialize());
+$('#data').on('submit', function (e) {
+    form_data = {
+        '_token': $('input[name="_token"]').val(),
+        'mode': $('#mode').val(),
+        'host': $('#host').val(),
+        'port': $('#port').val(),
+        'encyption': $('#encyption').val(),
+        'email': $('#email').val(),
+        'password': $('#password').val(),
+    }
+
+    saveData(form_data);
     $isEmpty = true;
     $(this).find('input').each(function () {
         if (!$(this).val()) {
@@ -19,7 +29,6 @@ $('#data').on('submit', function () {
 
 $('#save').on('click', function () {
     if ($('#save').html() == 'Save') {
-        console.log($('#data').serialize());
         $('#save').html("Edit");
         $('#data input').attr('disabled', '');
         $('#data select').attr('disabled', '');
@@ -36,10 +45,14 @@ $('#save').on('click', function () {
     }
 });
 
-function saveData() {
-    if ($($('#data input').val() == '')) {
-        console.log('there is empty field');
-    }
-    data = $('#data').serialize();
-    console.log($('#data').serialize());
+function saveData(form_data) {
+    $.ajax({
+        type: 'POST',
+        url: 'imap/get.php',
+        // datatype: 'json',
+        data: form_data,
+        success: function(data){
+            console.log(data);
+        }
+    });
 }

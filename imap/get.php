@@ -1,55 +1,39 @@
-<h1>Gmail Email Inbox using PHP with IMAP</h1>
 <?php
 if (!function_exists('imap_open')) {
     echo "IMAP is not configured.";
     exit();
 } else {
-?>
-    <div id="listData" class="list-form-container">
-        <?php
 
-        /* Connecting Gmail server with IMAP */
-        $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', 'hafidz21ub@gmail.com', 'gviwprdqfyrzjhgt
+    /* Connecting Gmail server with IMAP */
+    $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', 'hafidz21ub@gmail.com', 'gviwprdqfyrzjhgt
         ') or die('Cannot connect to Gmail: ' . imap_last_error());
 
-        // $MC = imap_check($connection);
+    // $MC = imap_check($connection);
 
-        /* Search Emails having the specified keyword in the email subject */
-        $emailData = imap_sort($connection, SORTDATE, 10);
+    /* Search Emails having the specified keyword in the email subject */
+    $emailData = imap_sort($connection, SORTDATE, 10);
 
-        if (!empty($emailData)) {
-        ?>
-            <table>
-                <?php
-                $i = 0;
-                foreach ($emailData as $emailIdent) {
-                    if ($i++ > 20) {
-                        break;
-                    }
-                    $overview = imap_fetch_overview($connection, $emailIdent, 0);
-                    $message = imap_fetchbody($connection, $emailIdent, '1.1');
-                    $messageExcerpt = substr($message, 0, 150);
-                    $partialMessage = trim(quoted_printable_decode($messageExcerpt));
-                    $date = date("d F, Y", strtotime($overview[0]->date));
-                ?>
-                    <tr>
-                        <td><span class="column">
-                                <?php echo $overview[0]->from; ?>
-                            </span></td>
-                        <td class="content-div"><span class="column">
-                                <?php echo $overview[0]->subject; ?> - <?php echo $partialMessage; ?>
-                            </span><span class="date">
-                                <?php echo $date; ?>
-                            </span></td>
-                    </tr>
-                <?php
-                } // End foreach
-                ?>
-            </table>
-    <?php
-        } // end if
+    $result = array();
+    if (!empty($emailData)) {
 
-        imap_close($connection);
-    }
-    ?>
-    </div>
+        $i = 0;
+        foreach ($emailData as $emailIdent) {
+            if ($i++ > 20) {
+                break;
+            }
+            $overview = imap_fetch_overview($connection, $emailIdent, 0);
+            $message = imap_fetchbody($connection, $emailIdent, '1.1');
+            $messageExcerpt = substr($message, 0, 150);
+            $partialMessage = trim(quoted_printable_decode($messageExcerpt));
+            $date = date("d F, Y", strtotime($overview[0]->date));
+            array_push($result[$i], $overview);
+            array_push($result[$i], $message);
+            array_push($result[$i], $messageExcerpt);
+            array_push($result[$i], $partialMessage);
+            array_push($result[$i], $date);
+        } // End foreach
+
+    } // end if
+
+    imap_close($connection);
+}

@@ -15,6 +15,7 @@
 <body class="bg-dark">
     <div class="accordion" id="accordionExample">
         <form id="data" method="POST" action="javascript:void(0);">
+            <input type="hidden" name="_token" value="<?php echo $_SESSION['token'] ?? '' ?>">
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="container-fluid" style="background-color: gray;">
                     <div class="row">
@@ -32,6 +33,12 @@
                             <div class="form-group">
                                 <label for="host">Host</label>
                                 <input id="host" class="form-control" type="text" name="host" required>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="port">Port</label>
+                                <input id="port" class="form-control" type="text" name="port" required>
                             </div>
                         </div>
                         <div class="col-sm">
