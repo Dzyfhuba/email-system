@@ -18,6 +18,16 @@
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="container-fluid" style="background-color: gray;">
                     <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="mode">Mode</label>
+                                <select id="mode" class="form-control" name="mode" required>
+                                    <option value="smtp">SMTP</option>
+                                    <option value="imap3">IMAP3</option>
+                                    <option value="pop3">POP3</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-sm">
                             <div class="form-group">
                                 <label for="host">Host</label>
@@ -53,9 +63,16 @@
             </div>
         </form>
     </div>
-    <div id="content" class="text-light container-fluid">
-        <?php //include('smtp/content.php') ?>
-        <?php include('imap/get.php') ?>
+    <div id="content" class="text-light container-fluid" style="display: none;">
+        <?php //include('smtp/content.php') 
+        ?>
+        <?php //include('imap/get.php') 
+        ?>
+    </div>
+    <div class="row align-items-center text-white position-fixed text-center m-0 w-100 h-100 text-capitalize font-weight-bolder" style='font-size: 4vw;' id='empty'>
+        <div class="col">
+            there are fields that have not been filled
+        </div>
     </div>
     <script src="<?= $env['host_url'] . '/js/index.js' ?>"></script>
     <script src="//github.com/fyneworks/multifile/blob/master/jquery.MultiFile.min.js" type="text/javascript" language="javascript"></script>
