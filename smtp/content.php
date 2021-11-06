@@ -1,12 +1,12 @@
 <form method="POST" action="smtp/post.php" enctype="multipart/form-data">
     <div class="row">
-        <div class="col">
+        <div class="col-sm">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input id="title" class="form-control" type="text" name="title">
             </div>
         </div>
-        <div class="col">
+        <div class="col-sm">
             <div class="form-group">
                 <label for="sent_to">Sent To</label>
                 <input id="sent_to" class="form-control " type="email" name="sent_to" required>
