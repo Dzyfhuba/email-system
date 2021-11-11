@@ -1,17 +1,6 @@
-$('#data').on('submit', function (e) {
-    form_data = {
-        '_token': $('input[name="_token"]').val(),
-        'mode': $('#mode').val(),
-        'host': $('#host').val(),
-        'port': $('#port').val(),
-        'encyption': $('#encyption').val(),
-        'email': $('#email').val(),
-        'password': $('#password').val(),
-    }
-
-    saveData(form_data);
+$('#data').on('submit', function(e) {
     $isEmpty = true;
-    $(this).find('input').each(function () {
+    $(this).find('input').each(function() {
         if (!$(this).val()) {
             $isEmpty = true;
         } else {
@@ -27,17 +16,28 @@ $('#data').on('submit', function (e) {
     }
 });
 
-$('#save').on('click', function () {
+$('#save').on('click', function() {
     if ($('#save').html() == 'Save') {
         $('#save').html("Edit");
+        $('#save').attr('type', 'button');
         $('#data input').attr('disabled', '');
         $('#data select').attr('disabled', '');
-        $('#save').removeClass('btn-primary');
         $('#save').addClass('btn-info')
+        $('#save').removeClass('btn-primary');
 
-
+        form_data = {
+            '_token': $('input[name="_token"]').val(),
+            'mode': $('#mode').val(),
+            'host': $('#host').val(),
+            'port': $('#port').val(),
+            'encryption': $('#encyption').val(),
+            'email': $('#email').val(),
+            'password': $('#password').val(),
+        }
+        saveData(form_data);
     } else {
         $('#save').html("Save");
+        $('#save').attr('type', 'submit');
         $('#data input').removeAttr('disabled');
         $('#data select').removeAttr('disabled');
         $('#save').addClass('btn-primary');
@@ -46,12 +46,49 @@ $('#save').on('click', function () {
 });
 
 function saveData(form_data) {
+    console.log(form_data);
     $.ajax({
         type: 'POST',
-        url: 'imap/get.php',
-        // datatype: 'json',
+        url: 'connect.php',
+        datatype: 'json',
         data: form_data,
-        success: function(data){
+        beforeSend: function() {
+            $('#loading').show();
+        },
+        success: function(data) {
+            console.log(data);
+            getData(data, form_data['mode']);
+        },
+        error: function(data) {
+            console.log(data);
+        },
+        complete: function() {
+            $('#loading').hide();
+            $('#notification').fadeIn('slow');
+            setTimeout("$('#notification').fadeOut('slow');", 5000);
+
+        }
+    });
+}
+
+function getData(data, mode) {
+    url_php = '';
+    switch (mode) {
+        case 'imap':
+            url_php = 'imap/get.php';
+            break;
+        case 'pop3':
+            url_php = 'pop3/get.php';
+            break;
+        default:
+            break;
+    }
+    $.ajax({
+        type: 'post',
+        url: url_php,
+        datatype: 'json',
+        data: data,
+        success: function(data) {
             console.log(data);
         }
     });

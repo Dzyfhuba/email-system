@@ -23,7 +23,6 @@
                             <div class="form-group">
                                 <label for="mode">Mode</label>
                                 <select id="mode" class="form-control" name="mode" required>
-                                    <option value="smtp">SMTP</option>
                                     <option value="imap3">IMAP3</option>
                                     <option value="pop3">POP3</option>
                                 </select>
@@ -70,12 +69,35 @@
             </div>
         </form>
     </div>
+    <div id='loading' class="position-fixed" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="lds-default">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="alert alert-success alert-dismissible position-fixed" id='notification' style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
     <div id="content" class="text-light container-fluid" style="display: none;">
         <?php //include('smtp/content.php') 
         ?>
         <?php //include('imap/get.php') 
         ?>
+        <?php //include('connect.php'); 
+        ?>
     </div>
+    <a role="button" class="btn btn-light align-middle pb-0 m-1"><i class="material-icons">refresh</i></a>
     <div class="row align-items-center text-white position-fixed text-center m-0 w-100 h-100 text-capitalize font-weight-bolder" style='font-size: 4vw;' id='empty'>
         <div class="col">
             there are fields that have not been filled

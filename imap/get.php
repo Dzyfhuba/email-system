@@ -5,11 +5,17 @@ if (!function_exists('imap_open')) {
 } else {
 
     /* Connecting Gmail server with IMAP */
-    $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', 'hafidz21ub@gmail.com', 'gviwprdqfyrzjhgt
-        ') or die('Cannot connect to Gmail: ' . imap_last_error());
 
+    $host = $_POST['host'];
+    $port = $_POST['port'];
+    $mode = $_POST['mode'];
+    $encryption = $_POST['encryption'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    echo 'asd1';
+    $connection = imap_open('{' . $host . ':' . $port . '/' . $mode . '/' . $encryption . '}INBOX', $email, $password) or die('Cannot connect to Gmail: ' . imap_last_error());
     // $MC = imap_check($connection);
-
     /* Search Emails having the specified keyword in the email subject */
     $emailData = imap_sort($connection, SORTDATE, 10);
 
@@ -34,6 +40,6 @@ if (!function_exists('imap_open')) {
         } // End foreach
 
     } // end if
-
     imap_close($connection);
+    return $result;
 }
